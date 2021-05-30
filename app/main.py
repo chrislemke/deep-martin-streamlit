@@ -1,6 +1,5 @@
 import streamlit as st
-
-import process
+import src.process
 import time
 
 hide_streamlit_style = """
@@ -30,7 +29,7 @@ clicked = st.button('Simplify')
 
 if clicked:
 
-    processed_text = process.process_text(source_text, model_id, percent_slider_val, temperature_slider_val)
+    processed_text = src.process.process_text(source_text, model_id, percent_slider_val, temperature_slider_val)
 
     latest_iteration = st.empty()
     bar = st.progress(0)
