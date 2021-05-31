@@ -14,9 +14,10 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.title('El Barto - text simplification')
 st.text('by Christopher Lemke')
 
-model_id = st.sidebar.selectbox(
-    "Select the Model", ("Base Bart", "El Barto", "Large Bart")
-)
+# model_id = st.sidebar.selectbox(
+#     "Select the Model", ("Base Bart", "El Barto", "Large Bart")
+# )
+model_id = 'El Barto'
 
 default_text = src.default_texts.identity
 st.write('### Add your text:')
