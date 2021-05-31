@@ -1,5 +1,6 @@
 import streamlit as st
 import src.process
+import src.default_texts
 import time
 
 hide_streamlit_style = """
@@ -14,20 +15,29 @@ st.title('El Barto - text simplification')
 st.text('by Christopher Lemke')
 
 model_id = st.sidebar.selectbox(
-    "Select the Model", ("Distil BART", "Large Bart")
+    "Select the Model", ("Base Bart", "El Barto", "Large Bart")
 )
 
+default_text = src.default_texts.identity
 st.write('### Add your text:')
 
-default_text = 'The tower is 324 metres (1,063 ft) tall, about the same height as an 81-storey building, and the tallest structure in Paris. Its base is square, measuring 125 metres (410 ft) on each side. During its construction, the Eiffel Tower surpassed the Washington Monument to become the tallest man-made structure in the world, a title it held for 41 years until the Chrysler Building in New York City was finished in 1930. It was the first structure to reach a height of 300 metres. Due to the addition of a broadcasting aerial at the top of the tower in 1957, it is now taller than the Chrysler Building by 5.2 metres (17 ft). Excluding transmitters, the Eiffel Tower is the second tallest free-standing structure in France after the Millau Viaduct.'
+source_text = st.text_area(label='Maximum length 1024 words.', max_chars=7500, height=270, value=default_text)
 
-source_text = st.text_area(label='Maximum length 1024 words.', max_chars=7500, height=250, value=default_text)
-percent_slider_val = st.slider("Percentage of the original text:", value=50, min_value=20)
-temperature_slider_val = st.slider("Temperature:", value=0.7, max_value=1.0, min_value=0.1)
+percent_slider_val = 0
+temperature_slider_val = 0.0
+
+if model_id != 'El Barto':
+    percent_slider_val = st.slider("Percentage of the original text:", value=50, min_value=20)
+    temperature_slider_val = st.slider("Temperature:", value=0.7, max_value=1.0, min_value=0.1)
 
 clicked = st.button('Simplify')
 
 if clicked:
+
+    if percent_slider_val == 0:
+        percent_slider_val = 100
+    if temperature_slider_val == 0.0:
+        temperature_slider_val = 0.7
 
     processed_text = src.process.process_text(source_text, model_id, percent_slider_val, temperature_slider_val)
 
@@ -35,9 +45,9 @@ if clicked:
     bar = st.progress(0)
 
     for i in range(100):
-        latest_iteration.text(f'Thinking ...')
+        latest_iteration.text(f'Thinking ...🤔')
         bar.progress(i + 1)
-        time.sleep(0.1)
+        time.sleep(0.05)
 
     st.write('### Simplified text:')
-    st.text_area(label='El Barto says:', value=processed_text, height=250)
+    st.text_area(label=f'{model_id} says:', value=processed_text, height=270)

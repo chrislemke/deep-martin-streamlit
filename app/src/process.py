@@ -1,9 +1,12 @@
 import src.loader
-import streamlit as st
 
 
-def process_text(input_text, selected_model_id, length, temperature=0.7):
-    max_length = int(len(input_text.split()) * (length / 100))
+def process_text(input_text, selected_model_id, length=None, temperature=0.7):
+
+    if length is None:
+        max_length = len(input_text)
+    else:
+        max_length = int(len(input_text.split()) * (length / 100))
 
     model, tokenizer = src.loader.load_model(selected_model_id)
     inputs = tokenizer([input_text], max_length=1024, return_tensors='pt')
