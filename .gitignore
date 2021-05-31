@@ -1,3 +1,4 @@
 .idea
 app/__pycache__
 *.bin
+app/src/__pycache__

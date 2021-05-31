@@ -3,6 +3,7 @@ import os
 import streamlit as st
 
 
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def load_model(identifier: str):
     if identifier == 'Distilled BART':
         return _load_distilled_bart_model()
@@ -14,6 +15,7 @@ def load_model(identifier: str):
         return _load_el_barto_model()
 
 
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def _load_distilled_bart_model():
     path = os.path.abspath(__file__ + '/../../models/distilled_bart')
     tokenizer = BartTokenizer.from_pretrained(path, add_prefix_space=True)
@@ -22,6 +24,7 @@ def _load_distilled_bart_model():
     return model, tokenizer
 
 
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def _load_large_bart_large_model():
     path = os.path.abspath(__file__ + '/../../models/large_bart')
     tokenizer = BartTokenizer.from_pretrained(path, add_prefix_space=True)
@@ -29,6 +32,8 @@ def _load_large_bart_large_model():
         path)
     return model, tokenizer
 
+
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def _load_bart_base_model():
     path = os.path.abspath(__file__ + '/../../models/base_bart')
     tokenizer = BartTokenizer.from_pretrained(path, add_prefix_space=True)
@@ -36,13 +41,14 @@ def _load_bart_base_model():
         path)
     return model, tokenizer
 
+
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def _load_el_barto_model():
     path = os.path.abspath(__file__ + '/../../models/el_barto')
     tokenizer = BartTokenizer.from_pretrained(path, add_prefix_space=True)
     model = BartForConditionalGeneration.from_pretrained(
         path)
     return model, tokenizer
-
 
 
 def download_bart_model(identifier: str, save_path: str):
@@ -52,7 +58,7 @@ def download_bart_model(identifier: str, save_path: str):
     model.save_pretrained(save_path)
 
 
-if __name__ == '__main__':
-    path = os.path.abspath(__file__ + '/../../models/base_bart')
-    identifier = 'facebook/bart-base'
-    download_bart_model(identifier, path)
+# if __name__ == '__main__':
+#     path = os.path.abspath(__file__ + '/../../models/base_bart')
+#     identifier = 'facebook/bart-base'
+#     download_bart_model(identifier, path)
