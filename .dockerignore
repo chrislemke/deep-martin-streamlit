@@ -1,5 +1,6 @@
 .idea
 app/__pycache__
-*.bin
 app/src/__pycache__
-app/models
+notebooks
+.git
+.gitignore

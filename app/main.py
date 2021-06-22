@@ -1,5 +1,5 @@
-import app1
-import app2
+import src.simplifier
+import src.overview
 import streamlit as st
 
 hide_streamlit_style = """
@@ -11,8 +11,8 @@ footer {visibility: hidden;}
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 PAGES = {
-    "Text simplification": app1,
-    "Compare models": app2
+    "Text simplification": src.simplifier,
+    "Model overview": src.overview
 }
 st.sidebar.title('Navigation')
 selection = st.sidebar.radio("Navigate", list(PAGES.keys()))

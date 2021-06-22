@@ -1,20 +1,56 @@
 import src.loader
 
 
-def process_text(input_text, selected_model_id, length=None, temperature=0.7):
-    if length is None:
-        max_length = len(input_text)
-    else:
-        max_length = int(len(input_text.split()) * (length / 100))
+def process_text(
+        input_text,
+        selected_model_id,
+        temperature_slider_val,
+        num_beams_slider_val,
+        top_k_slider_val,
+        do_sample_val,
+        no_repeat_ngram_size_slider_value,
+        length_penalty_slider_value,
+        early_stopping):
+
+    print('\n')
+    print('selected_model_id:', selected_model_id)
+    print('temperature_slider_val:', temperature_slider_val)
+    print('num_beams_slider_val:', num_beams_slider_val)
+    print('top_k_slider_val:', top_k_slider_val)
+    print('do_sample_val:', do_sample_val),
+    print('no_repeat_ngram_size_slider_value:',
+          no_repeat_ngram_size_slider_value)
+    print('length_penalty_slider_value:', length_penalty_slider_value)
+    print('early_stopping:', early_stopping)
 
     model, tokenizer = src.loader.load_model(selected_model_id)
-    inputs = tokenizer([input_text], max_length=max_length, return_tensors='pt')
-    output = model.generate(inputs['input_ids'], num_beams=5, max_length=max_length, early_stopping=True,
-                            return_dict_in_generate=False, temperature=temperature, output_attentions=False,
-                            do_sample=False)
+    text_length = len(input_text.split())
+    max_length = int(text_length + (text_length * 0.2))
+    min_length = int(text_length * 0.5)
 
-    texts = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in output]
-    return texts
+    inputs = tokenizer([input_text], padding='max_length',
+                       max_length=max_length + 15, truncation=True, return_tensors='pt')
+
+    model.config.decoder_start_token_id = tokenizer.cls_token_id
+    model.config.eos_token_id = tokenizer.sep_token_id
+    model.config.pad_token_id = tokenizer.pad_token_id
+    model.config.vocab_size = model.config.encoder.vocab_size
+
+    output = model.generate(inputs['input_ids'],
+                            max_length=max_length,
+                            min_length=min_length,
+                            num_beams=num_beams_slider_val,
+                            no_repeat_ngram_size=no_repeat_ngram_size_slider_value,
+                            length_penalty=length_penalty_slider_value,
+                            temperature=temperature_slider_val,
+                            early_stopping=early_stopping,
+                            top_k=top_k_slider_val,
+                            do_sample=do_sample_val
+                            )
+
+    text = tokenizer.batch_decode(
+        output, skip_special_tokens=True)
+    return text
 
 
 if __name__ == '__main__':
