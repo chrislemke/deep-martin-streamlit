@@ -4,13 +4,13 @@ import src.loader
 def process_text(
         input_text,
         selected_model_id,
-        temperature_slider_val,
-        num_beams_slider_val,
-        top_k_slider_val,
-        do_sample_val,
-        no_repeat_ngram_size_slider_value,
-        length_penalty_slider_value,
-        early_stopping):
+        temperature_slider_val=1.0,
+        num_beams_slider_val=3,
+        top_k_slider_val=50,
+        do_sample_val=False,
+        no_repeat_ngram_size_slider_value=0,
+        length_penalty_slider_value=1,
+        early_stopping=False):
 
     print('\n')
     print('selected_model_id:', selected_model_id)
@@ -51,13 +51,3 @@ def process_text(
     text = tokenizer.batch_decode(
         output, skip_special_tokens=True)
     return text
-
-
-if __name__ == '__main__':
-    import default_texts
-
-    text = default_texts.identity
-
-    # text = "This is a test with not so many terms."
-
-    print(process_text(text, 'El Barto'))

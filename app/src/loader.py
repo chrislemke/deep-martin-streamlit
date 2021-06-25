@@ -5,11 +5,11 @@ import streamlit as st
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def load_model(identifier: str):
-    if identifier == 'Bert2Bert+':
+    if identifier == 'BERT2BERT':
         return __load_bert2bert_big_model()
-    if identifier == 'Newsela2Newsela+':
+    if identifier == 'Newsela2Newsela':
         return __load_newsela2newsela_big_model()
-    if identifier == 'Roberta2Roberta+':
+    if identifier == 'RoBERTa2RoBERTa':
         return __load_roberta2roberta_big_model()
 
 
