@@ -1,0 +1,5 @@
+[server]
+port=80
+
+[theme]
+primaryColor="#6959f6"

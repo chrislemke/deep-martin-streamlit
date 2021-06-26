@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 
 def app():
@@ -9,7 +10,7 @@ def app():
     st.write('In encoder-decoder models, the decoder uses auto-regression to generate the next word. It is bases on the idea that the probability distribution of a sequence of tokens can be understood as product of conditional next word distributions.')
     x1 = r'''
         $$ 
-        P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0)  
+        P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0)\text{, with }  w_{1: 0} = \emptyset 
         $$
         '''
     st.write(x1)
@@ -58,6 +59,10 @@ def app():
         '[Checkout the documentation.](https://huggingface.co/transformers/main_classes/model.html)')
 
     st.subheader('4. Temperature')
+    image = Image.open('temperature.jpg')
+    st.image(image)
+    st.write(
+        'The left side represents a temperature of approx. 1.0 the right side of approx. 0.65.')
     st.markdown('''The **temperature** has an effect on the sharpness of the probability distribution. 
     The lower the **temperature** the sharper the curve. The sharper the curve the more conservative the selected tokens.''')
 

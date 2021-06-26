@@ -35,7 +35,7 @@ def app():
             "Repeat n-gram size:", value=0, max_value=5, min_value=0)
 
         top_k_slider_val = st.slider(
-            "Top-K:", value=50, max_value=50, min_value=0)
+            "Top-K:", value=0 if do_sample_val is True else 50, max_value=50, min_value=0)
     else:
         do_sample_val = False
         early_stopping_val = True
@@ -48,24 +48,18 @@ def app():
     clicked = st.button('Simplify it!')
 
     if clicked:
-
-        processed_texts = src.process.process_text(
-            source_text, model_id,
-            temperature_slider_val,
-            num_beams_slider_val,
-            top_k_slider_val,
-            do_sample_val,
-            no_repeat_ngram_siz_slider_value,
-            length_penalty_slider_value,
-            early_stopping_val)
+        with st.spinner('Martin is thinking ...🤔'):
+            processed_texts = src.process.process_text(
+                source_text, model_id,
+                temperature_slider_val,
+                num_beams_slider_val,
+                top_k_slider_val,
+                do_sample_val,
+                no_repeat_ngram_siz_slider_value,
+                length_penalty_slider_value,
+                early_stopping_val)
 
         latest_iteration = st.empty()
-        bar = st.progress(0)
-
-        for i in range(100):
-            latest_iteration.text(f'Martin is thinking ...🤔')
-            bar.progress(i + 1)
-            time.sleep(0.01)
 
         st.write('### Simplified text:')
         st.text_area(label=f'{model_id} says:',

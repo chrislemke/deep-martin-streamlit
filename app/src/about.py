@@ -1,7 +1,9 @@
 import streamlit as st
+from PIL import Image
+
 
 
 def app():
-    st.title('About')
-    st.markdown('[Github](https://github.com/stoffy)')
-    st.markdown('[LinkedIn](https://www.linkedin.com/in/stoffy/)')
+    image = Image.open('profile_image.jpg')
+    st.image(image, width=100)
+    
