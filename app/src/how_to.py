@@ -15,6 +15,8 @@ def app():
         '''
     st.write(x1)
     st.write('The following functionalities can be applied to auto-regression. They all have different impact on the text generation.')
+    st.markdown(
+        'Checkout the Hugging Face [documentation](https://huggingface.co/transformers/main_classes/model.html#transformers.generation_utils.GenerationMixin.generate) for more information.')
 
     st.subheader('1. Sampling')
     st.write('''Shortly explained sampling is about taking the next word according to its conditional probability:''')
@@ -55,14 +57,11 @@ def app():
     st.write('''Exponential penalty to the length. 1.0 means no penalty. 
     Set to values < 1.0 in order to encourage the model to generate shorter sequences, 
     to a value > 1.0 in order to encourage the model to produce longer sequences.''')
-    st.markdown(
-        '[Checkout the documentation.](https://huggingface.co/transformers/main_classes/model.html)')
-
     st.subheader('4. Temperature')
     image = Image.open('temperature.jpg')
     st.image(image)
     st.write(
-        'The left side represents a temperature of approx. 1.0 the right side of approx. 0.65.')
+        'The left side could for example represent a temperature of ~ 0.5 the right side of ~ 1.1.')
     st.markdown('''The **temperature** has an effect on the sharpness of the probability distribution. 
     The lower the **temperature** the sharper the curve. The sharper the curve the more conservative the selected tokens.''')
 

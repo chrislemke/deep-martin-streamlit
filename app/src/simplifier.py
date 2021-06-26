@@ -26,7 +26,7 @@ def app():
             "Number of beams:", value=1, max_value=5, min_value=1)
 
         length_penalty_slider_value = st.slider(
-            "Length penalty:", value=1.0, max_value=3.0, min_value=0.1)
+            "Length penalty:", value=0.5, max_value=3.0, min_value=0.1)
 
         temperature_slider_val = st.slider(
             "Temperature:", value=1.0, max_value=10.0, min_value=0.2)
@@ -38,17 +38,17 @@ def app():
             "Top-K:", value=0 if do_sample_val is True else 50, max_value=50, min_value=0)
     else:
         do_sample_val = False
-        early_stopping_val = True
-        num_beams_slider_val = 3
-        length_penalty_slider_value = 1.0
-        temperature_slider_val = 1.0
+        early_stopping_val = False
+        num_beams_slider_val = 1
+        length_penalty_slider_value = 0.5
+        temperature_slider_val = 2.0
         no_repeat_ngram_siz_slider_value = 0
         top_k_slider_val = 50
 
     clicked = st.button('Simplify it!')
 
     if clicked:
-        with st.spinner('Martin is thinking ...🤔'):
+        with st.spinner('Martin is thinking. 🤔 Please wait ...'):
             processed_texts = src.process.process_text(
                 source_text, model_id,
                 temperature_slider_val,
