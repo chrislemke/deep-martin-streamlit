@@ -7,8 +7,9 @@ def app():
 
     st.sidebar.title("About")
     st.sidebar.info('''
-    Deep martin wants to help understand complicated and long texts better. 
-    It uses transformer models trained using ~600k lines of simplified English. 
+    Deep Martin is a project consisting of several ML models. 
+    All of them are Sequence2Sequence transformer. 
+    Primarily they differ in terms of the data they were pre-trained with. 
     ''')
 
     image = Image.open('heidegger.png')
