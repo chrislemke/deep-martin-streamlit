@@ -16,7 +16,7 @@ def app():
     st.image(image, width=200)
     st.title('Deep Martin')
     st.title('Text simplification')
-    st.subheader('the Heidegger countermovement')
+    st.subheader('for the democratization of knowledge ')
     components.html('<br>')
     st.markdown(
-        'Want to know more about Martin Heidegger? [Click here](https://en.wikipedia.org/wiki/Martin_Heidegger).')
+        'Want to know more about Martin? [Click here](https://en.wikipedia.org/wiki/Martin_Heidegger).')

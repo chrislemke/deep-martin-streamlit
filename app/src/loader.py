@@ -10,6 +10,16 @@ def load_model(identifier: str):
         return __load_newsela2newsela_big_model()
     if identifier == 'RoBERTa2RoBERTa':
         return __load_roberta2roberta_big_model()
+    if identifier == 'Martin':
+        return __load_martin_model()
+
+
+@st.cache(suppress_st_warning=True, allow_output_mutation=True, persist=False, show_spinner=False)
+def __load_martin_model():
+    path = os.path.abspath(__file__ + '/../../models/martin')
+    tokenizer = BertTokenizerFast.from_pretrained(path)
+    model = EncoderDecoderModel.from_pretrained(path)
+    return model, tokenizer
 
 
 @st.cache(suppress_st_warning=True, allow_output_mutation=True, persist=False, show_spinner=False)

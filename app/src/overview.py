@@ -1,7 +1,6 @@
 import streamlit as st
 
 
-
 def app():
     st.title('Model overview')
     st.markdown('''Three different models are available. 
@@ -9,16 +8,16 @@ def app():
         All were trained on a dataset created from multiple datasets. These can be viewed [here](https://paperswithcode.com/task/text-simplification).''')
 
     st.write(''' 
-     The idea behind *fine-tuning* the model is to transfer task-agnostic knowledge connected
-     to a certain domain to a specific tasked based on this knowledge. The problem with general 
-     text simplification, however, is that the associated knowledge is unspecifically large. 
-     This can affect the predicted results. Specialization in a particular field, such as astronomy, 
-     would counteract this, but at the expense of general text simplification.
+        The idea behind *fine-tuning* the model is to transfer task-agnostic knowledge connected
+        to a certain domain to a specific tasked based on this knowledge. The problem with general
+        text simplification, however, is that the associated knowledge is unspecifically large.
+        This can affect the predicted results. Specialization in a particular field, such as astronomy, 
+        would counteract this, but at the expense of general text simplification.
     ''')
 
     st.subheader('Sequence2Sequence models')
     st.markdown(''' 
-        The task of a sequence-to-sequence model is to map a input sequence $\mathbf{X}_{1:n}$
+        The task of a sequence-to-sequence model is to map an input sequence $\mathbf{X}_{1:n}$
         to an output sequence $\mathbf{Y}_{1:m}$:
     ''')
     st.write(r'$p_{\theta_{{model}}}(\mathbf{Y}_{1:m} | \mathbf{X}_{1:n})$')
@@ -32,6 +31,15 @@ def app():
     ''')
     st.write(
         r'$p_{\theta_{\text{dec}}}(\mathbf{Y}_{1:m} | \mathbf{\overline{X}}_{1:n})$')
+
+    st.subheader('Martin')
+    st.write('''
+    Martin is an encoder-decoder transformer made from scratch. Using Pytorch this transformer is not created using the
+    Hugging Face 🤗 library. Unlike the others, the BERT weights are used here by extraction as embedding weights.
+    Thus, this model is a hybrid between the fine-tuned models and a completely untrained one. 
+    Martin is still a relatively simple implementation. 
+    Neither beam search nor the possibility to change the temperature or other model parameters is implemented.
+    ''')
 
     st.subheader('BERT2BERT')
     st.write('''
@@ -48,6 +56,6 @@ def app():
     st.markdown('''
     [RoBERTa](https://arxiv.org/abs/1907.11692): A Robustly Optimized BERT Pretraining Approach was developed by Facebook and is based on BERT. 
     It has the same size and differs accordingly only in the data set with which it was trained. 
-    In addition, RoBERTa was trained with the CommonCrawl News dataset, the Web text corpus and the Stories from Common Crawl.
+    In addition, RoBERTa was trained with the CommonCrawl News dataset, the Web text corpus and, the Stories from Common Crawl.
     Read [more](https://commoncrawl.org/) about common crawl. 
     ''')

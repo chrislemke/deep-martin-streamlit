@@ -8,7 +8,7 @@ import src.default_texts
 def app():
     model_id = st.sidebar.selectbox(
         "Select the Model", ("BERT2BERT",
-                             "Newsela2Newsela", "RoBERTa2RoBERTa")
+                             "Newsela2Newsela", "RoBERTa2RoBERTa", "Martin")
     )
 
     default_text = src.default_texts.quantum_mechanics
@@ -17,7 +17,11 @@ def app():
     source_text = st.text_area(
         label='Maximum length 900 characters', max_chars=900, height=270, value=default_text)
 
-    nerd_mode_val = st.checkbox("Nerd mode", value=False)
+    if model_id == 'Martin':
+        nerd_mode_val = False
+    else:
+        nerd_mode_val = st.checkbox("Nerd mode", value=False)
+
     if nerd_mode_val is True:
         do_sample_val = st.checkbox("Sampling", value=True)
         early_stopping_val = st.checkbox("Early stopping", value=False)
@@ -40,15 +44,19 @@ def app():
         do_sample_val = False
         early_stopping_val = False
         num_beams_slider_val = 1
-        length_penalty_slider_value = 0.5
-        temperature_slider_val = 2.0
+        length_penalty_slider_value = 1
+        temperature_slider_val = 0.6
         no_repeat_ngram_siz_slider_value = 0
         top_k_slider_val = 50
 
-    clicked = st.button('Simplify it!')
+    if model_id == 'Martin':
+        clicked = None
+        st.text('Under construction. Sorry! 👷‍♂️')
+    else:
+        clicked = st.button('Simplify it!')
 
     if clicked:
-        with st.spinner('Martin is thinking. 🤔 Please wait ...'):
+        with st.spinner('Deep Martin is thinking. 🤔 Please wait ...'):
             processed_texts = src.process.process_text(
                 source_text, model_id,
                 temperature_slider_val,
