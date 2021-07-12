@@ -2,6 +2,7 @@ import src.simplifier
 import src.overview
 import src.how_to
 import src.home
+import src.read_more
 import streamlit as st
 from PIL import Image
 
@@ -19,6 +20,7 @@ PAGES = {
     "Text simplification": src.simplifier,
     "About the nerd mode": src.how_to,
     "Model overview": src.overview,
+    "Read more": src.read_more
 }
 st.sidebar.title('Navigation')
 selection = st.sidebar.radio("", list(PAGES.keys()))
