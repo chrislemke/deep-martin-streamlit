@@ -1,6 +1,0 @@
-.idea
-app/__pycache__
-app/src/__pycache__
-notebooks
-.git
-.gitignore
