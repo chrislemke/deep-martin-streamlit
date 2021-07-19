@@ -48,6 +48,4 @@ def process_text(
                             do_sample=do_sample_val
                             )
 
-    text = tokenizer.batch_decode(
-        output, skip_special_tokens=True)
-    return text
+    return tokenizer.batch_decode(output, skip_special_tokens=True)
