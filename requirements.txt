@@ -1,5 +1,5 @@
 transformers==4.6.1
-streamlit==0.82.0
+streamlit==1.11.1
 pandas==1.2.4
 numpy==1.19.5
 openpyxl==3.0.7
